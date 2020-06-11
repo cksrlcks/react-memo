@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 const NotePage = ({ match }) => {
-  useEffect(() => {
-    const pageId = match.params.id;
-    fetch("http://localhost:3000/data/data.json");
-  }, []);
-  return <>노트페이지 </>;
+  const pageId = match.params.id;
+  const note = useSelector(
+    (state) => state.notes.filter((note) => note.id == pageId),
+    []
+  );
+  return (
+    <>
+      <div className="title">{note[0].title}</div>
+      <div className="content">{note[0].content}</div>
+    </>
+  );
 };
 
 export default NotePage;

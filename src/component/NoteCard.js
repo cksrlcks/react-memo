@@ -8,7 +8,9 @@ const Card = ({ note }) => {
       <Link to={`/notes/${note.id}`}>
         <div className="content">
           <p className="title">{note.title}</p>
-          <p className="summary">{note.summary}</p>
+          <p className="summary">
+            {note.summary.length > 0 ? note.summary : note.content}
+          </p>
         </div>
         <div className="meta">
           <span className="date">{note.meta.date}</span>

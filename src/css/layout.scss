@@ -26,11 +26,8 @@ body {
 		height: calc(100vh - 60px);
 		.left {
 			flex: 0 0 auto;
-			overflow-y: auto;
 			width: 400px;
 			border-right: 1px solid #eee;
-			display: flex;
-			flex-direction: column;
 		}
 		.right {
 			width: calc(100% - 400px);
