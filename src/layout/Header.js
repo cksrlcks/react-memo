@@ -1,29 +1,12 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { signInWithGoogle } from "../firebase";
-import { useSelector, useDispatch } from "react-redux";
+import User from "../component/User";
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.login.logIn);
-
-  const loginProcess = () => {
-    const login = signInWithGoogle();
-
-    if (login) {
-      dispatch({ type: "LOGIN_SUCCESS" });
-    }
-  };
   return (
     <HeaderBox className="header">
-      <div>
-        {!loginState ? (
-          <button onClick={loginProcess}>로그인</button>
-        ) : (
-          " 로그아웃"
-        )}
-      </div>
+      <User />
       <Nav>
         <NavLink exact to="/" activeClassName="active">
           Home
@@ -31,9 +14,9 @@ const Header = () => {
         <NavLink to="/notes" activeClassName="active">
           Notes
         </NavLink>
-        {/* <NavLink to="/todos" activeClassName="active">
-					Todos
-				</NavLink> */}
+        <NavLink to="/Write" activeClassName="active">
+          Write
+        </NavLink>
       </Nav>
     </HeaderBox>
   );
@@ -42,7 +25,7 @@ const Header = () => {
 export default Header;
 const HeaderBox = styled.header`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 `;
 const Nav = styled.nav`

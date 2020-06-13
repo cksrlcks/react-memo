@@ -1,26 +1,33 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import "firebase/database";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBmJu1YG2syvXCVRHrcWQUfKm07jVgQyjk",
-  authDomain: "react-memo-2444c.firebaseapp.com",
-  databaseURL: "https://react-memo-2444c.firebaseio.com",
-  projectId: "react-memo-2444c",
-  storageBucket: "react-memo-2444c.appspot.com",
-  messagingSenderId: "708170098132",
-  appId: "1:708170098132:web:152118527ddac9baa2a241",
-  measurementId: "G-9Y23TR4761",
+const fbConfig = {
+  apiKey: process.env.FIREBASE_APIKEY,
+  authDomain: process.env.FIREBASE_AUTHDOMAIN,
+  databaseURL: process.env.FIREBASE_DB_URL,
+  projectId: process.env.FIREBASE_PROJECTID,
+  storageBucket: process.env.FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.FIREBASE_APPID,
+  measurementId: process.env.FIREBASE_MEASUREMENTID,
 };
-firebase.initializeApp(firebaseConfig);
-//firebase.analytics();
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+// react-redux-firebase config
+export const rrfConfig = {
+  userProfile: "users",
+  //useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
+  // enableClaims: true // Get custom claims along with the profile
+};
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+// Initialize firebase instance
+firebase.initializeApp(fbConfig);
 
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+// Initialize other services on firebase instance
+//firebase.firestore(); // <- needed if using firestore
+// firebase.functions() // <- needed if using httpsCallable
+
+export const database = firebase.database();
 
 export default firebase;

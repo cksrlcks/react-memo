@@ -1,17 +1,20 @@
-import rootReducer from "../reducer/rootReducer";
+import { rootReducer } from "../reducer/rootReducer";
 import { createStore, applyMiddleware, compose } from "redux";
-import { reactReduxFirebase } from "react-redux-firebase";
-import firebase from "../firebase";
+import firebase, { rrfConfig } from "../firebase";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/functions";
 
-// const createStoreWithFirebase = compose(reactReduxFirebase(firebase))(
-//   createStore
-// );
-
-const store = createStore(
+const initialState = {};
+export const store = createStore(
   rootReducer,
-  {},
+  initialState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  //applyMiddleware(reduxThunk)
 );
 
-export default store;
+export const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  // createFirestoreInstance // <- needed if using firestore
+};

@@ -1,13 +1,8 @@
-export const ADD_NOTE = "ADD_NOTE";
-export const REMOVE_NOTE = "REMOVE_NOTE";
+export const SET_TOTAL = "SET_TOTAL";
 
-export const add_note = () => {
+export const set_total = (number) => {
   return {
-    type: ADD_NOTE,
-  };
-};
-export const remove_note = () => {
-  return {
-    type: REMOVE_NOTE,
+    type: SET_TOTAL,
+    total: number,
   };
 };

@@ -2,19 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Card = ({ note }) => {
+const Card = ({ note, id }) => {
+  //console.log(note);
   return (
     <CardBox>
-      <Link to={`/notes/${note.id}`}>
+      <Link to={`/notes/${id}`}>
         <div className="content">
           <p className="title">{note.title}</p>
-          <p className="summary">
-            {note.summary.length > 0 ? note.summary : note.content}
-          </p>
+          <p className="summary">{note.content}</p>
         </div>
         <div className="meta">
-          <span className="date">{note.meta.date}</span>
-          <span className="time">{note.meta.time}</span>
+          {/* <span className="date">{note.meta.date}</span>
+          <span className="time">{note.meta.time}</span> */}
         </div>
       </Link>
     </CardBox>

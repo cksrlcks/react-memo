@@ -36,4 +36,17 @@ body {
 			padding: 2em;
 		}
 	}
+
+	
 }
+.btn {
+	padding: 0.6em 1em;
+	border: 1px solid #eee;
+	border-radius: 4px;
+	margin-right: 2em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	&.type_01 {
+	}
+  }
