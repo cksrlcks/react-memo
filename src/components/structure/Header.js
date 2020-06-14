@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import User from "../component/User";
+import User from "../user/User";
 
 const Header = () => {
   return (
@@ -12,7 +12,7 @@ const Header = () => {
           Home
         </NavLink>
         <NavLink to="/notes" activeClassName="active">
-          Notes
+          List
         </NavLink>
         <NavLink to="/Write" activeClassName="active">
           Write

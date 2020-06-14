@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import { firebaseReducer } from "react-redux-firebase";
+import user from "./userReducer";
 import notes from "./noteReducer";
 import todos from "./todoReducer";
 
-export const rootReducer = combineReducers({
+const rootReudcer = combineReducers({
+  user,
   notes,
   todos,
-  firebase: firebaseReducer,
 });
+
+export default rootReudcer;

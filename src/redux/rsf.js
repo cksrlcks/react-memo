@@ -1,7 +1,8 @@
+//redux-saga-firebase : rsf.js
 import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
+//import "firebase/firestore";
 import "firebase/database";
+import ReduxSagaFirebase from "redux-saga-firebase";
 
 const fbConfig = {
   apiKey: process.env.FIREBASE_APIKEY,
@@ -14,20 +15,12 @@ const fbConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENTID,
 };
 
-// react-redux-firebase config
-export const rrfConfig = {
-  userProfile: "users",
-  //useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
-  // enableClaims: true // Get custom claims along with the profile
-};
+const firebaseApp = firebase.initializeApp(fbConfig);
+const rsf = new ReduxSagaFirebase(firebaseApp);
 
-// Initialize firebase instance
-firebase.initializeApp(fbConfig);
-
-// Initialize other services on firebase instance
 //firebase.firestore(); // <- needed if using firestore
 // firebase.functions() // <- needed if using httpsCallable
 
 export const database = firebase.database();
 
-export default firebase;
+export default rsf;
