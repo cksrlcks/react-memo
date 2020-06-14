@@ -79,12 +79,12 @@ time,
 mark,
 audio,
 video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -98,65 +98,77 @@ hgroup,
 menu,
 nav,
 section {
-	display: block;
+  display: block;
 }
 
 *,
 *:before,
 *:after {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-	overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 body {
-	font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Apple SD Gothic Neo, Noto Sans KR, Noto Sans CJK KR, Malgun Gothic, 맑은 고딕, 나눔고딕, Nanum Gothic, arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
-	font-size: 14px;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-	color: #2d2f31;
-	letter-spacing: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue,
+    Apple SD Gothic Neo, Noto Sans KR, Noto Sans CJK KR, Malgun Gothic,
+    맑은 고딕, 나눔고딕, Nanum Gothic, arial, 돋움, Dotum, Tahoma, Geneva,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  color: #2d2f31;
+  letter-spacing: 0;
 }
 ol,
 ul {
-	list-style: none;
+  list-style: none;
 }
 blockquote,
 q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-	content: "";
-	content: none;
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+input {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
 }
 
 button {
-	color: inherit;
-	font: inherit;
-	font-size: inherit;
-	line-height: normal;
-	vertical-align: initial;
-	padding: 0;
-	margin: 0;
-	border: 0;
-	background: none;
-	overflow: visible;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	cursor: pointer;
+  color: inherit;
+  font: inherit;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: initial;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  overflow: visible;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
 }
 a {
-	text-decoration: none;
-	color: inherit;
+  text-decoration: none;
+  color: inherit;
 }

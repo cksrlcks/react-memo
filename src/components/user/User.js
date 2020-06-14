@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { logIn, logOut } from "../../redux/action/userAction";
 
-const User = () => {
+const User = ({ history }) => {
   const { loading, loggedIn, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   return (
     <UserBox className="user_box">
       {!loggedIn ? (
-        <button className="btn type_01" onClick={() => dispatch(logIn())}>
+        <button
+          className="btn type_01"
+          onClick={() => {
+            history.push("/User");
+          }}
+        >
           로그인
         </button>
       ) : (
@@ -28,7 +34,7 @@ const User = () => {
   );
 };
 
-export default User;
+export default withRouter(User);
 const UserBox = styled.div`
   margin-left: 20px;
 `;
