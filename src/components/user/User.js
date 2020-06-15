@@ -24,10 +24,14 @@ const User = ({ history }) => {
             로그아웃
           </button>
           <span className="pic">
-            <img src={user.photoURL} className="profile_pic" />
+            {user && user.photoURL && (
+              <img src={user.photoURL} className="profile_pic" />
+            )}
           </span>
-          <span className="name">{user.displayName}</span>
-          <span className="email">{user.email}</span>
+          {user && user.displayName && (
+            <span className="name">{user && user.displayName}</span>
+          )}
+          <span className="email">{user && user.email}</span>
         </Profile>
       )}
     </UserBox>

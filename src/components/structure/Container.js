@@ -4,6 +4,7 @@ import Home from "../../pages/Home";
 import Notes from "../../pages/Notes";
 import User from "../../pages/User";
 import Write from "../../pages/Write";
+import SignUp from "../../pages/SignUp";
 import styled from "styled-components";
 const Container = () => {
   return (
@@ -14,6 +15,7 @@ const Container = () => {
           <Route path="/notes" component={Notes} />
           <Route path="/User" component={User} />
           <Route path="/Write" component={Write} />
+          <Route path="/SignUp" component={SignUp} />
         </Switch>
       </ContainerBox>
     </>

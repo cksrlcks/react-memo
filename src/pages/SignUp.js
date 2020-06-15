@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelectotr } from "react-redux";
-import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { logIn, googleLogIn } from "../redux/action/userAction";
+import { logIn, signUp } from "../redux/action/userAction";
 
-const User = ({ history }) => {
+const User = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+
   const dispatch = useDispatch();
 
+  const checkEmail = (email) => {
+    const regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return email != "" && email != "undefined" && regex.test(email);
+  };
   const handleEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
@@ -17,16 +22,33 @@ const User = ({ history }) => {
     const password = e.target.value;
     setPassword(password);
   };
+  const handlePasswordCheck = (e) => {
+    const passwordCheck = e.target.value;
+    setPasswordCheck(passwordCheck);
+  };
 
-  const handleLogIn = (e) => {
+  const handleSignIn = (e) => {
     e.preventDefault();
-    const user = {
+    const userData = {
       email,
       password,
     };
+
+    if (passwordCheck !== userData.password) {
+      return alert("비밀번호를 다시한번 확인해주세요");
+    }
+
+    if (!checkEmail(userData.email)) {
+      return alert("이메일주소가 정확하지 않습니다. 다시한번 확인해주세요");
+    }
+
+    console.log(userData);
   };
+
+  useEffect(() => {}, [passwordCheck]);
+
   return (
-    <LoginBox onSubmit={handleLogIn}>
+    <LoginBox onSubmit={handleSignIn}>
       <div className="input_box">
         <label htmlFor="user_email">이메일</label>
         <input
@@ -47,24 +69,26 @@ const User = ({ history }) => {
           onChange={handlePassword}
         />
       </div>
+      <div className="input_box">
+        <label htmlFor="user_password_check">비밀번호 확인</label>
+        <input
+          type="password"
+          placeholder="비밀번호를 다시한번 입력해주세요"
+          id="user_password_check"
+          value={passwordCheck}
+          onChange={handlePasswordCheck}
+        />
+      </div>
       <button
         type="submit"
-        onClick={() => dispatch(logIn({ email, password }))}
-      >
-        로그인
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          history.push("/SignUp");
-        }}
+        onClick={() => dispatch(signUp({ email, password }))}
       >
         회원가입
       </button>
       <button
         type="button"
         className="google"
-        onClick={() => dispatch(googleLogIn())}
+        onClick={() => dispatch(logIn())}
       >
         Sign in With Google
       </button>
@@ -72,7 +96,7 @@ const User = ({ history }) => {
   );
 };
 
-export default withRouter(User);
+export default User;
 
 const LoginBox = styled.form`
   max-width: 400px;
