@@ -5,6 +5,7 @@ import { logIn, signUp } from "../redux/action/userAction";
 
 const User = () => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
@@ -17,6 +18,10 @@ const User = () => {
   const handleEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
+  };
+  const handleName = (e) => {
+    const name = e.taget.value;
+    setName(name);
   };
   const handlePassword = (e) => {
     const password = e.target.value;
@@ -31,6 +36,7 @@ const User = () => {
     e.preventDefault();
     const userData = {
       email,
+      name,
       password,
     };
 
@@ -41,9 +47,9 @@ const User = () => {
     if (!checkEmail(userData.email)) {
       return alert("이메일주소가 정확하지 않습니다. 다시한번 확인해주세요");
     }
-  };
 
-  useEffect(() => {}, [passwordCheck]);
+    dispatch(signUp(userData));
+  };
 
   return (
     <LoginBox onSubmit={handleSignIn}>
@@ -55,6 +61,16 @@ const User = () => {
           id="user_email"
           value={email}
           onChange={handleEmail}
+        />
+      </div>
+      <div className="input_box">
+        <label htmlFor="user_name">이름</label>
+        <input
+          type="text"
+          placeholder="이름을 입력해주세요"
+          id="user_name"
+          value={name}
+          onChange={handleName}
         />
       </div>
       <div className="input_box">
@@ -77,12 +93,7 @@ const User = () => {
           onChange={handlePasswordCheck}
         />
       </div>
-      <button
-        type="submit"
-        onClick={() => dispatch(signUp({ email, password }))}
-      >
-        회원가입
-      </button>
+      <button type="submit">회원가입</button>
       <button
         type="button"
         className="google"

@@ -70,6 +70,8 @@ function* signUpSaga(action) {
       data.password
     );
 
+    //db.ref(`users/${user.uid}`).set({name: username});
+
     yield put(signUpSuccess());
     alert("회원가입에 성공했습니다.");
     yield put(push("/"));
