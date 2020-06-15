@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import { auth } from "firebase/auth";
+import { push } from "connected-react-router";
 import { all, call, fork, put, take, takeEvery } from "redux-saga/effects";
 import {
   LOGIN_REQUEST,
@@ -34,12 +35,12 @@ function* logInStatusWatcher() {
   //channel 액션이 들어올때마다 계속 동작하게하는 while true문
   while (true) {
     const { user } = yield take(channel);
-
     if (user) {
       yield put(logInSuccess(user));
     } else {
       yield put(logOutSuccess());
     }
+    yield put(push("/"));
   }
 }
 

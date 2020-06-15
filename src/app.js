@@ -2,8 +2,10 @@ import "@babel/polyfill";
 import React from "react";
 import Header from "./components/structure/Header";
 import { BrowserRouter as Router } from "react-router-dom";
-import store from "./redux/store";
+import store, { history } from "./redux/store";
 import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+
 import Container from "./components/structure/Container";
 import styled from "styled-components";
 
@@ -11,10 +13,12 @@ const App = () => {
   return (
     <Router>
       <Provider store={store}>
-        <Header />
-        <Body className="contents">
-          <Container />
-        </Body>
+        <ConnectedRouter history={history}>
+          <Header />
+          <Body className="contents">
+            <Container />
+          </Body>
+        </ConnectedRouter>
       </Provider>
     </Router>
   );

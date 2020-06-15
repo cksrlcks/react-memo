@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.10.1",
+		"connected-react-router": "^6.8.0",
 		"dotenv": "^8.2.0",
 		"firebase": "^7.15.0",
 		"global": "^4.4.0",
