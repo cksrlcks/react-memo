@@ -74,6 +74,7 @@ function* signUpSaga(action) {
     alert("회원가입에 성공했습니다.");
     yield put(push("/"));
   } catch (error) {
+    alert(error);
     yield put(signUpFailure(error));
   }
 }

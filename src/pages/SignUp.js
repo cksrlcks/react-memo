@@ -41,8 +41,6 @@ const User = () => {
     if (!checkEmail(userData.email)) {
       return alert("이메일주소가 정확하지 않습니다. 다시한번 확인해주세요");
     }
-
-    console.log(userData);
   };
 
   useEffect(() => {}, [passwordCheck]);
