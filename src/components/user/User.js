@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { logIn, logOut } from "../../redux/action/userAction";
-
 const User = ({ history }) => {
   const { loading, loggedIn, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -23,14 +22,12 @@ const User = ({ history }) => {
           <button className="btn type_01" onClick={() => dispatch(logOut())}>
             로그아웃
           </button>
-          <span className="pic">
-            {user && user.photoURL && (
+          {user && user.photoURL && (
+            <span className="pic">
               <img src={user.photoURL} className="profile_pic" />
-            )}
-          </span>
-          {user && user.displayName && (
-            <span className="name">{user && user.displayName}</span>
+            </span>
           )}
+          <span className="name">{user && user.displayName}</span>
           <span className="email">{user && user.email}</span>
         </Profile>
       )}

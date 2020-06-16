@@ -20,7 +20,7 @@ const User = () => {
     setEmail(email);
   };
   const handleName = (e) => {
-    const name = e.taget.value;
+    const name = e.target.value;
     setName(name);
   };
   const handlePassword = (e) => {

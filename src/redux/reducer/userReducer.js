@@ -15,6 +15,7 @@ const initialState = {
   loading: false,
   loggedIn: false,
   user: null,
+  dataUser: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -32,6 +33,7 @@ const userReducer = (state = initialState, action) => {
         loading: false,
         loggedIn: true,
         user: action.user,
+        dataUser: action.userData,
       };
 
     case LOGIN_FAILURE:
@@ -57,7 +59,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         loggedIn: true,
-        user: action.user,
       };
     case SIGNUP_FAILURE:
       return {

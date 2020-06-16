@@ -28,7 +28,7 @@ export const googleLogIn = () => {
 export const logInSuccess = (user) => {
   return {
     type: LOGIN_SUCCESS,
-    user,
+    user: user,
   };
 };
 

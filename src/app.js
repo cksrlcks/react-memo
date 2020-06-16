@@ -8,6 +8,7 @@ import { ConnectedRouter } from "connected-react-router";
 
 import Container from "./components/structure/Container";
 import styled from "styled-components";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const App = () => {
   return (

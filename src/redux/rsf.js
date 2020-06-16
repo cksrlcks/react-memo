@@ -17,10 +17,8 @@ const fbConfig = {
 
 const firebaseApp = firebase.initializeApp(fbConfig);
 const rsf = new ReduxSagaFirebase(firebaseApp);
-
+export const db = firebaseApp.database();
 //firebase.firestore(); // <- needed if using firestore
 // firebase.functions() // <- needed if using httpsCallable
-
-export const database = firebase.database();
 
 export default rsf;

@@ -43,8 +43,7 @@ function* logInSaga(action) {
 
 function* googleLogInSaga() {
   try {
-    yield call(rsf.auth.signInWithPopup, authProvider);
-
+    const user = yield call(rsf.auth.signInWithPopup, authProvider);
     yield put(push("/"));
   } catch (error) {
     yield put(logInFailure(error));
@@ -54,7 +53,6 @@ function* googleLogInSaga() {
 function* logOutSaga() {
   try {
     yield call(rsf.auth.signOut);
-
     yield put(push("/"));
   } catch (error) {
     yield put(logOutFailure(error));
@@ -70,7 +68,18 @@ function* signUpSaga(action) {
       data.password
     );
 
-    //db.ref(`users/${user.uid}`).set({name: username});
+    const userData = {
+      uid: user.user.uid,
+      displayName: data.name,
+      email: user.user.email,
+    };
+
+    yield call(
+      // rsf.database.ref(`users/${user.uid}`).set({ displayName: data.name })
+      rsf.database.patch,
+      `/users/${user.user.uid}`,
+      userData
+    );
 
     yield put(signUpSuccess());
     alert("회원가입에 성공했습니다.");
@@ -86,8 +95,22 @@ function* logInStatusWatcher() {
   //channel 액션이 들어올때마다 계속 동작하게하는 while true문
   while (true) {
     const { user } = yield take(channel);
+
     if (user) {
-      yield put(logInSuccess(user));
+      let updateUser = {};
+      if (user.displayName !== null) {
+        //구글로 로그인되어잇으면 데이타베이스에 유저 업데이트
+        yield call(rsf.database.patch, `/users/${user.uid}`, {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
+        updateUser = yield call(rsf.database.read, `/users/${user.uid}`);
+      } else {
+        updateUser = yield call(rsf.database.read, `/users/${user.uid}`);
+      }
+      yield put(logInSuccess(updateUser));
     } else {
       yield put(logOutSuccess());
     }
