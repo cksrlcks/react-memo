@@ -1,17 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import EditorJs from "react-editor-js";
 import Header from "@editorjs/header";
 import Paragraph from "@editorjs/paragraph";
+import { add_note, reset_note_success } from "../redux/action/noteAction";
+import Loader from "react-loader-spinner";
 
 const Write = () => {
-  const [title, setTitle] = useState({});
-  const [content, setContent] = useState({});
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [instance, setInstance] = useState("");
   const { loading, loggedIn, user } = useSelector((state) => state.user);
+  const { note_loading } = useSelector((state) => state.notes);
+  const dispatch = useDispatch();
 
-  const editorInstance = useRef();
+  let now = new Date();
+
   const EDITOR_JS_TOOLS = {
     paragraph: Paragraph,
     header: Header,
@@ -24,7 +29,11 @@ const Write = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await instance.save();
-    console.log(data, title);
+    //console.log(data, title, user.uid);
+    const note_data = { uid: user.uid, title: title, content: data };
+    dispatch(add_note(note_data));
+    setTitle("");
+    instance.clear();
   };
 
   const data = {
@@ -52,14 +61,16 @@ const Write = () => {
               취소
             </button>
           </div>
-          <div className="input_box title">
-            <input type="text" placeholder="제목을 입력하세요" />
-          </div>
-          <EditorJs
-            data={data}
-            instanceRef={(instance) => setInstance(instance)}
-            tools={EDITOR_JS_TOOLS}
-          />
+          {note_loading ? (
+            <Loader type="Oval" color="#00BFFF" height={40} width={40} className="loader" />
+          ) : (
+            <>
+              <div className="input_box title">
+                <input type="text" placeholder="제목을 입력하세요" value={title} onChange={handleInput} />
+              </div>
+              <EditorJs data={data} instanceRef={(instance) => setInstance(instance)} tools={EDITOR_JS_TOOLS} />
+            </>
+          )}
         </WriteBox>
       )}
     </>
