@@ -11,9 +11,11 @@ const sagaMiddleware = createSagaMiddleware();
 
 const enhancers = compose(
   applyMiddleware(sagaMiddleware, routerMiddleware(history)),
-  window.__REDUX_DEVTOOLS_EXTENSION__
-    ? window.__REDUX_DEVTOOLS_EXTENSION__()
-    : (f) => f
+  process.env.NODE_ENV !== "production"
+    ? window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : (f) => f
+    : ""
 );
 
 const store = createStore(rootReducer(history), enhancers);
