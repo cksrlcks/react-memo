@@ -4,17 +4,18 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const Dotenv = require("dotenv-webpack");
-const mode = process.env.NODE_ENV || "development";
 
 module.exports = {
   watch: true,
-  mode,
+  mode: "none",
   entry: "./src/index.js",
+  devtool: "inline-source-map",
   output: {
     path: path.resolve("./dist"),
     filename: "bundle.js",
     publicPath: "/",
   },
+
   module: {
     rules: [
       {
@@ -55,6 +56,24 @@ module.exports = {
     new Dotenv(),
   ],
 
+  ...(process.env.NODE_ENV === "production"
+    ? {
+        optimization: {
+          minimize: true,
+          splitChunks: {
+            cacheGroups: {
+              vendor: {
+                test: /node_modules/,
+                chunks: "initial",
+                name: "vendor",
+                enforce: true,
+              },
+            },
+          },
+          concatenateModules: true,
+        },
+      }
+    : []),
   devServer: {
     historyApiFallback: true,
     contentBase: "./public",

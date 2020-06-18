@@ -8,6 +8,7 @@ import {
   SYNC_NOTES_REQUEST,
   SYNC_NOTES_SUCCESS,
   SYNC_NOTES_FAILURE,
+  VIEW_NOTE,
   SUCCESS_RESET,
 } from "../action/noteAction";
 
@@ -16,6 +17,7 @@ const initialState = {
   reset: false,
   notes: "",
   success: false,
+  nowKey: "",
 };
 
 const notes = (state = initialState, action) => {
@@ -72,6 +74,11 @@ const notes = (state = initialState, action) => {
       return {
         ...state,
         success: false,
+      };
+    case VIEW_NOTE:
+      return {
+        ...state,
+        nowKey: action.nowKey,
       };
     default:
       return state;

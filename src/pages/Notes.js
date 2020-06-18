@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import NoteView from "../components/Notes/NoteView";
+import NoteList from "../components/Notes/NoteList";
 import styled from "styled-components";
-import NoteItem from "../components/Notes/NoteItem";
+
 import Lottie from "react-lottie";
 import * as animationData from "../asset/empty.json";
 const Notes = () => {
@@ -16,6 +18,9 @@ const Notes = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
+  const [nowNote, setNowNote] = useState(0);
+
   useEffect(() => {}, [notes]);
   return (
     <>
@@ -33,9 +38,10 @@ const Notes = () => {
                   <p>작성된 노트가 없습니다.</p>
                 </EmptyNote>
               ) : (
-                Object.keys(notes).map((key, index) => (
-                  <NoteItem note={notes[key]} key={key} />
-                ))
+                <NotePageView>
+                  <NoteList />
+                  <NoteView nowNote={nowNote} />
+                </NotePageView>
               )}
             </>
           )}
@@ -68,4 +74,8 @@ const EmptyNote = styled.div`
     font-size: 1.2em;
     opacity: 0.6;
   }
+`;
+const NotePageView = styled.div`
+  display: flex;
+  height: 100%;
 `;

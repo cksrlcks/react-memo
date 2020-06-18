@@ -14,11 +14,13 @@ const defaultOptions = {
 };
 const SuccessAnimation = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     setTimeout(() => {
       dispatch(success_reset());
     }, 2000);
   }, []);
+
   return (
     <AlertBox>
       <Lottie options={defaultOptions} height={376} width={470} />

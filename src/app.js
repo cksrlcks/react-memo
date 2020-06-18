@@ -1,4 +1,3 @@
-import "@babel/polyfill";
 import React from "react";
 import Header from "./components/structure/Header";
 import { BrowserRouter as Router } from "react-router-dom";

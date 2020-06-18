@@ -106,7 +106,6 @@ const WriteBox = styled.div`
   padding-top: 3em;
   .control {
     display: flex;
-
     .btn {
       padding: 0.6em 1em;
       border: 1px solid #eee;
@@ -118,13 +117,11 @@ const WriteBox = styled.div`
       justify-content: center;
     }
   }
-
   .title {
     margin-bottom: 1em;
     padding-bottom: 1em;
     border-bottom: 1px solid #eee;
     font-size: 2em;
-
     input {
       color: #333;
       width: 100%;

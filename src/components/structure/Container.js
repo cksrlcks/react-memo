@@ -15,7 +15,13 @@ const Container = () => {
     <>
       <ContainerBox>
         {loading ? (
-          <Loader type="Oval" color="#00BFFF" height={80} width={80} className="loader" />
+          <Loader
+            type="Oval"
+            color="#00BFFF"
+            height={80}
+            width={80}
+            className="loader"
+          />
         ) : (
           <Switch>
             <Route exact path="/" component={Home} />

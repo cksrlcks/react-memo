@@ -11,6 +11,8 @@ export const SYNC_NOTES_SUCCESS = "SYNC_NOTES_SUCCESS";
 export const SYNC_NOTES_FAILURE = "SYNC_NOTES_FAILURE";
 
 export const SUCCESS_RESET = "SUCCESS_RESET";
+
+export const VIEW_NOTE = "VIEW_NOTE";
 export const add_note = (data) => {
   return {
     type: ADD_NOTE_REQUEST,
@@ -69,5 +71,12 @@ export const sync_notes_failure = () => {
 export const success_reset = () => {
   return {
     type: SUCCESS_RESET,
+  };
+};
+
+export const view_note = (itemKey) => {
+  return {
+    type: VIEW_NOTE,
+    nowKey: itemKey,
   };
 };
