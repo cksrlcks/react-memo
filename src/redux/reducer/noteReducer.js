@@ -1,8 +1,21 @@
-import { ADD_NOTE_REQUEST, ADD_NOTE_SUCCESS, ADD_NOTE_FAILURE, RESET_NOTE_REQUEST, RESET_NOTE_SUCCESS } from "../action/noteAction";
+import {
+  ADD_NOTE_REQUEST,
+  ADD_NOTE_SUCCESS,
+  ADD_NOTE_FAILURE,
+  LOAD_NOTES_REQUEST,
+  LOAD_NOTES_SUCCESS,
+  LOAD_NOTES_FAILURE,
+  SYNC_NOTES_REQUEST,
+  SYNC_NOTES_SUCCESS,
+  SYNC_NOTES_FAILURE,
+  SUCCESS_RESET,
+} from "../action/noteAction";
 
 const initialState = {
   note_loading: false,
   reset: false,
+  notes: "",
+  success: false,
 };
 
 const notes = (state = initialState, action) => {
@@ -16,21 +29,49 @@ const notes = (state = initialState, action) => {
       return {
         ...state,
         note_loading: false,
+        success: true,
       };
     case ADD_NOTE_FAILURE:
       return {
         ...state,
         note_loading: false,
       };
-    case RESET_NOTE_REQUEST:
+    case LOAD_NOTES_REQUEST:
       return {
         ...state,
-        reset: true,
+        note_loading: true,
       };
-    case RESET_NOTE_SUCCESS:
+    case LOAD_NOTES_SUCCESS:
       return {
         ...state,
-        reset: false,
+        notes: action.notes,
+        note_loading: false,
+      };
+    case LOAD_NOTES_FAILURE:
+      return {
+        ...state,
+        note_loading: false,
+      };
+    case SYNC_NOTES_REQUEST:
+      return {
+        ...state,
+        note_loading: true,
+      };
+    case SYNC_NOTES_SUCCESS:
+      return {
+        ...state,
+        note_loading: false,
+        notes: action.notes,
+      };
+    case SYNC_NOTES_FAILURE:
+      return {
+        ...state,
+        note_loading: false,
+      };
+    case SUCCESS_RESET:
+      return {
+        ...state,
+        success: false,
       };
     default:
       return state;

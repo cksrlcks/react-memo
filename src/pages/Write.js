@@ -6,16 +6,14 @@ import Header from "@editorjs/header";
 import Paragraph from "@editorjs/paragraph";
 import { add_note, reset_note_success } from "../redux/action/noteAction";
 import Loader from "react-loader-spinner";
-
+import SuccessAnimation from "../components/Notes/Success";
 const Write = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [instance, setInstance] = useState("");
   const { loading, loggedIn, user } = useSelector((state) => state.user);
-  const { note_loading } = useSelector((state) => state.notes);
+  const { note_loading, success } = useSelector((state) => state.notes);
   const dispatch = useDispatch();
-
-  let now = new Date();
 
   const EDITOR_JS_TOOLS = {
     paragraph: Paragraph,
@@ -29,7 +27,6 @@ const Write = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await instance.save();
-    //console.log(data, title, user.uid);
     const note_data = { uid: user.uid, title: title, content: data };
     dispatch(add_note(note_data));
     setTitle("");
@@ -51,6 +48,8 @@ const Write = () => {
     <>
       {!loggedIn ? (
         <LoginRequestBox>로그인이 필요합니다.</LoginRequestBox>
+      ) : success ? (
+        <SuccessAnimation />
       ) : (
         <WriteBox>
           <div className="control">
@@ -62,13 +61,28 @@ const Write = () => {
             </button>
           </div>
           {note_loading ? (
-            <Loader type="Oval" color="#00BFFF" height={40} width={40} className="loader" />
+            <Loader
+              type="Oval"
+              color="#00BFFF"
+              height={40}
+              width={40}
+              className="loader"
+            />
           ) : (
             <>
               <div className="input_box title">
-                <input type="text" placeholder="제목을 입력하세요" value={title} onChange={handleInput} />
+                <input
+                  type="text"
+                  placeholder="제목을 입력하세요"
+                  value={title}
+                  onChange={handleInput}
+                />
               </div>
-              <EditorJs data={data} instanceRef={(instance) => setInstance(instance)} tools={EDITOR_JS_TOOLS} />
+              <EditorJs
+                data={data}
+                instanceRef={(instance) => setInstance(instance)}
+                tools={EDITOR_JS_TOOLS}
+              />
             </>
           )}
         </WriteBox>
