@@ -4,15 +4,15 @@ import { useDispatch } from "react-redux";
 import { view_note } from "../../redux/action/noteAction";
 const NoteItem = ({ note, itemKey }) => {
   const dispatch = useDispatch();
-
   const handleView = () => {
     dispatch(view_note(itemKey));
   };
+  const date = new Date(note.content.time).toLocaleString();
   return (
     <NoteItemBox onClick={handleView}>
       <p className="title">{note.title}</p>
       <p className="summary">{note.content.blocks[0].data.text}</p>
-      <p className="date">{note.content.time}</p>
+      <p className="date">{date}</p>
     </NoteItemBox>
   );
 };

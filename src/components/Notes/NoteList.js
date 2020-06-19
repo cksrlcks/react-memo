@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import NoteItem from "./NoteItem";
 import styled from "styled-components";
 import { Scrollbars } from "react-custom-scrollbars";
-const NoteList = () => {
-  const { note_loading, notes } = useSelector((state) => state.notes);
+const NoteList = ({ notes }) => {
   return (
     <div className="left">
       <Scrollbars
@@ -14,9 +13,11 @@ const NoteList = () => {
         autoHideDuration={200}
       >
         <NoteItemBox>
-          {Object.keys(notes).map((key, index) => (
-            <NoteItem note={notes[key]} key={key} itemKey={key} />
-          ))}
+          {Object.keys(notes)
+            .reverse()
+            .map((key, index) => (
+              <NoteItem note={notes[key]} key={key} itemKey={key} />
+            ))}
         </NoteItemBox>
       </Scrollbars>
     </div>

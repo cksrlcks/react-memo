@@ -15,7 +15,7 @@ const fbConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENTID,
 };
 
-const firebaseApp = firebase.initializeApp(fbConfig);
+export const firebaseApp = firebase.initializeApp(fbConfig);
 const rsf = new ReduxSagaFirebase(firebaseApp);
 export const db = firebaseApp.database();
 //firebase.firestore(); // <- needed if using firestore

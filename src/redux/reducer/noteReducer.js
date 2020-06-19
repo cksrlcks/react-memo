@@ -10,6 +10,9 @@ import {
   SYNC_NOTES_FAILURE,
   VIEW_NOTE,
   SUCCESS_RESET,
+  DELETE_NOTE_REQUEST,
+  DELETE_NOTE_SUCCESS,
+  DELETE_NOTE_FAILURE,
 } from "../action/noteAction";
 
 const initialState = {
@@ -66,6 +69,21 @@ const notes = (state = initialState, action) => {
         notes: action.notes,
       };
     case SYNC_NOTES_FAILURE:
+      return {
+        ...state,
+        note_loading: false,
+      };
+    case DELETE_NOTE_REQUEST:
+      return {
+        ...state,
+        note_loading: true,
+      };
+    case DELETE_NOTE_SUCCESS:
+      return {
+        ...state,
+        note_loading: false,
+      };
+    case DELETE_NOTE_FAILURE:
       return {
         ...state,
         note_loading: false,

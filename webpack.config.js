@@ -14,7 +14,7 @@ module.exports = (env, options) => {
     output: {
       filename: "[name].bundle.js",
       path: path.resolve(__dirname, "dist"),
-      //publicPath: "/",
+      publicPath: "/",
     },
     module: {
       rules: [
@@ -61,9 +61,12 @@ module.exports = (env, options) => {
     config.devServer = {
       historyApiFallback: true,
       contentBase: "./public",
+      publicPath: "/",
       hot: true,
+      overlay: true,
       inline: true,
-      port: 3000,
+      stats: "errors-only",
+      port: 8080,
     };
   } else {
     config.plugins = [
@@ -76,7 +79,7 @@ module.exports = (env, options) => {
     ];
 
     config.optimization = {
-      minimize: false,
+      minimize: true,
       splitChunks: {
         cacheGroups: {
           commons: {

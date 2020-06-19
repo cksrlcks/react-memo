@@ -6,7 +6,7 @@
 	"author": "chanki <chanki.kim89@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"start": "webpack-dev-server --open ",
+		"start": "cross-env webpack-dev-server --mode development --open ",
 		"build": "cross-env NODE_ENV=production webpack --mode production --progress",
 		"dev-build" : "webpack --mode development --progress"
 	},

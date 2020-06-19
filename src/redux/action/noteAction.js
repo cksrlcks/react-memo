@@ -10,9 +10,14 @@ export const SYNC_NOTES_REQUEST = "SYNC_NOTES_REQUEST";
 export const SYNC_NOTES_SUCCESS = "SYNC_NOTES_SUCCESS";
 export const SYNC_NOTES_FAILURE = "SYNC_NOTES_FAILURE";
 
+export const DELETE_NOTE_REQUEST = "DELETE_NOTE_REQUEST";
+export const DELETE_NOTE_SUCCESS = "DELETE_NOTES_SUCCESS";
+export const DELETE_NOTE_FAILURE = "DELETE_NOTE_FAILURE";
+
 export const SUCCESS_RESET = "SUCCESS_RESET";
 
 export const VIEW_NOTE = "VIEW_NOTE";
+
 export const add_note = (data) => {
   return {
     type: ADD_NOTE_REQUEST,
@@ -47,6 +52,24 @@ export const load_notes_success = (userNotes) => {
 export const load_notes_failure = () => {
   return {
     type: LOAD_NOTES_FAILURE,
+  };
+};
+
+export const delete_note = (itemKey) => {
+  return {
+    type: DELETE_NOTE_REQUEST,
+    targetKey: itemKey,
+  };
+};
+
+export const delete_note_success = () => {
+  return {
+    type: DELETE_NOTE_SUCCESS,
+  };
+};
+export const delete_note_failure = () => {
+  return {
+    type: DELETE_NOTE_FAILURE,
   };
 };
 

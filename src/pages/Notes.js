@@ -2,26 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NoteView from "../components/Notes/NoteView";
 import NoteList from "../components/Notes/NoteList";
+import EmptyNote from "../components/Notes/EmptyNote";
 import styled from "styled-components";
 
-import Lottie from "react-lottie";
-import * as animationData from "../asset/empty.json";
 const Notes = () => {
   const dispatch = useDispatch();
-  const { note_loading, notes } = useSelector((state) => state.notes);
+  const { note_loading, notes, nowKey } = useSelector((state) => state.notes);
   const { loading, loggedIn, user } = useSelector((state) => state.user);
-  const defaultOptions = {
-    loop: false,
-    autoplay: true,
-    animationData: animationData.default,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
+  const [viewNote, setViewNote] = useState("");
+  const viewPageSetting = (key) => {
+    const item = notes[key];
+    setViewNote(item);
   };
-
-  const [nowNote, setNowNote] = useState(0);
-
-  useEffect(() => {}, [notes]);
+  useEffect(() => {
+    viewPageSetting(nowKey);
+  }, [nowKey]);
   return (
     <>
       {!loggedIn ? (
@@ -33,14 +28,11 @@ const Notes = () => {
           ) : (
             <>
               {!notes ? (
-                <EmptyNote>
-                  <Lottie options={defaultOptions} height={244} width={360} />
-                  <p>작성된 노트가 없습니다.</p>
-                </EmptyNote>
+                <EmptyNote />
               ) : (
                 <NotePageView>
-                  <NoteList />
-                  <NoteView nowNote={nowNote} />
+                  <NoteList notes={notes} />
+                  <NoteView viewNote={viewNote} itemKey={nowKey} />
                 </NotePageView>
               )}
             </>
@@ -62,19 +54,7 @@ const LoginRequestBox = styled.div`
 const NotesListBox = styled.div`
   height: 100%;
 `;
-const EmptyNote = styled.div`
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  p {
-    margin-top: 2em;
-    font-size: 1.2em;
-    opacity: 0.6;
-  }
-`;
+
 const NotePageView = styled.div`
   display: flex;
   height: 100%;
