@@ -10,14 +10,9 @@ export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
-const composeEnhancers =
-  typeof window === "object" &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-  process.env.NODE_ENV !== "production"
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
+const composeEnhancers = typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && process.env.NODE_ENV !== "production" ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 
-const enhancers = compose(applyMiddleware(...middlewares));
+const enhancers = composeEnhancers(applyMiddleware(...middlewares));
 
 const store = createStore(rootReducer(history), enhancers);
 

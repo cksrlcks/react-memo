@@ -3,25 +3,24 @@ import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { logIn, logOut } from "../../redux/action/userAction";
+import Button from "../ui/Button";
 const User = ({ history }) => {
   const { loading, loggedIn, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const handleLogin = () => {
+    history.push("/User");
+  };
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
   return (
     <UserBox className="user_box">
       {!loggedIn ? (
-        <button
-          className="btn type_01"
-          onClick={() => {
-            history.push("/User");
-          }}
-        >
-          로그인
-        </button>
+        <Button type="button" label="로그인" onClick={handleLogin} />
       ) : (
         <Profile>
-          <button className="btn type_01" onClick={() => dispatch(logOut())}>
-            로그아웃
-          </button>
+          <Button type="button" label="로그아웃" onClick={handleLogOut} />
           {user && user.photoURL && (
             <span className="pic">
               <img src={user.photoURL} className="profile_pic" />
@@ -38,6 +37,9 @@ const User = ({ history }) => {
 export default withRouter(User);
 const UserBox = styled.div`
   margin-left: 20px;
+  button {
+    margin-right: 2em;
+  }
 `;
 const Profile = styled.div`
   display: flex;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import styled from "styled-components";
 import { Scrollbars } from "react-custom-scrollbars";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import EditorJs from "react-editor-js";
 import Header from "@editorjs/header";
 import Paragraph from "@editorjs/paragraph";
 import Loader from "react-loader-spinner";
+import Button from "../ui/Button";
 
 //editor_js settings
 const EDITOR_JS_TOOLS = {
@@ -14,32 +15,16 @@ const EDITOR_JS_TOOLS = {
   header: Header,
 };
 
-const NoteView = ({ note, itemKey }) => {
-  const { note_loading } = useSelector((state) => state.notes);
+const NoteView = ({ itemKey, note }) => {
+  const { note_loading, notes, nowKey } = useSelector((state) => state.notes);
   const dispatch = useDispatch();
   const instanceRef = useRef(null);
-
-  const [updateTitle, setUpdateTitle] = useState("");
-  const [updateData, setUpdateData] = useState("");
-
-  useEffect(() => {
-    if (note) {
-      setUpdateTitle(note.title);
-      setUpdateData(note.content);
-    }
-  }, [note]);
-
-  const handleInput = (e) => {
-    const title = e.target.value;
-    setUpdateTitle(title);
-  };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     const updateDate = new Date();
     const updateData = await instanceRef.current.save();
     const update_data = {
-      title: updateTitle,
       content: updateData,
       updateDate: updateDate.getTime(),
       rupdateDate: -1 * updateDate.getTime(),
@@ -58,36 +43,12 @@ const NoteView = ({ note, itemKey }) => {
       {note_loading ? (
         <Loader type="Oval" color="#00BFFF" height={80} width={80} className="loader" />
       ) : (
-        <Scrollbars
-          style={{ height: "100%" }}
-          autoHide
-          autoHideTimeout={1000}
-          autoHideDuration={200}
-        >
+        <Scrollbars style={{ height: "100%" }} autoHide autoHideTimeout={1000} autoHideDuration={200}>
           <div className="control">
-            <button type="button" onClick={handleUpdate} className="btn">
-              수정
-            </button>
-            <button type="button" onClick={handleDelete} className="btn">
-              삭제
-            </button>
+            <Button type="button" onClick={handleUpdate} label="수정" />
+            <Button type="button" onClick={handleDelete} label="삭제" />
           </div>
-          <div className="content">
-            <div className="input_box title">
-              <input
-                type="text"
-                placeholder="제목을 입력하세요"
-                value={updateTitle}
-                onChange={handleInput}
-              />
-            </div>
-            <EditorJs
-              data={updateData}
-              instanceRef={(el) => (instanceRef.current = el)}
-              tools={EDITOR_JS_TOOLS}
-              enableReInitialize={true}
-            />
-          </div>
+          <div className="content">{note && <EditorJs data={note.content} enableReInitialize={true} instanceRef={(el) => (instanceRef.current = el)} tools={EDITOR_JS_TOOLS} />}</div>
         </Scrollbars>
       )}
     </NoteViewBox>
@@ -106,15 +67,9 @@ const NoteViewBox = styled.div`
   }
   .control {
     display: flex;
-    .btn {
-      padding: 0.6em 1em;
-      border: 1px solid #eee;
-      border-radius: 4px;
+    button {
       margin-right: 0.5em;
       margin-bottom: 4em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   }
   .content {

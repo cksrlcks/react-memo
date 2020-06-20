@@ -8,11 +8,12 @@ const NoteItem = ({ note, itemKey }) => {
     dispatch(set_key(itemKey));
   };
   const render_date = new Date(note && note.date).toLocaleString();
+  const render_update = note.updateDate ? new Date(note.updateDate).toLocaleString() : "";
   return (
     <NoteItemBox onClick={handleView}>
-      <p className="title">{note && note.title}</p>
-      <p className="summary">{note && note.content.blocks[0].data.text}</p>
-      <p className="date">{render_date}</p>
+      <p className="title">{note && note.content.blocks[0].data.text}</p>
+      <p className="date">작성일 : {render_date}</p>
+      {render_update && <p className="modify">최근 수정일 : {render_update}</p>}
     </NoteItemBox>
   );
 };
@@ -21,13 +22,13 @@ export default NoteItem;
 
 const NoteItemBox = styled.div`
   border: 1px solid #eee;
-  padding: 1em;
+  padding: 1.4em 1.2em;
   margin-bottom: 1em;
+  border-radius: 2px;
   cursor: pointer;
   .title {
-    font-size: 1.2em;
     font-weight: 500;
-    margin-bottom: 1em;
+    margin-bottom: 1.6em;
   }
   .summary {
     text-overflow: ellipsis;
@@ -36,6 +37,12 @@ const NoteItemBox = styled.div`
     margin-bottom: 0.8em;
   }
   .date {
+    opacity: 0.6;
+    font-size: 0.8em;
+    text-align: right;
+    margin-bottom: 0.4em;
+  }
+  .modify {
     opacity: 0.6;
     font-size: 0.8em;
     text-align: right;

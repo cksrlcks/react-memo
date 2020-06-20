@@ -1,52 +1,39 @@
 html {
-	height: 100%;
+  height: 100%;
 }
 body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 #app {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	padding-top: 60px;
-	.header {
-		height: 60px;
-		border-bottom: 1px solid #eee;
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		background: #fff;
-	}
-	.contents {
-		flex: 0 1 auto;
-		display: flex;
-		height: calc(100vh - 60px);
-		.left {
-			flex: 0 0 auto;
-			width: 400px;
-			border-right: 1px solid #eee;
-		}
-		.right {
-			width: calc(100% - 400px);
-			flex: 0 0 auto;
-			overflow-y: auto;
-			padding: 2em;
-		}
-	}
-
-	
-}
-.btn {
-	padding: 0.6em 1em;
-	border: 1px solid #eee;
-	border-radius: 4px;
-	margin-right: 2em;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	&.type_01 {
-	}
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 60px;
+  .header {
+    height: 60px;
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
   }
+  .contents {
+    flex: 0 1 auto;
+    display: flex;
+    height: calc(100vh - 60px);
+    .left {
+      flex: 0 0 auto;
+      width: 400px;
+      border-right: 1px solid #eee;
+    }
+    .right {
+      width: calc(100% - 400px);
+      flex: 0 0 auto;
+      overflow-y: auto;
+      padding: 2em;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import EditorJs from "react-editor-js";
@@ -7,45 +7,53 @@ import Paragraph from "@editorjs/paragraph";
 import { add_note } from "../redux/action/noteAction";
 import Loader from "react-loader-spinner";
 import SuccessAnimation from "../components/Notes/Success";
-
+import Button from "../components/ui/Button";
+import "../css/editor.scss";
 //editor_js settings
 const EDITOR_JS_TOOLS = {
   paragraph: Paragraph,
   header: Header,
 };
 
-const data = {
-  blocks: [
-    {
-      type: "paragraph",
-      data: {
-        text: "내용을 입력해주세요",
-      },
-    },
-  ],
-};
-
 const Write = () => {
   const dispatch = useDispatch();
+  const instanceRef = useRef(null);
+  const createDate = new Date();
+
   const { loading, loggedIn, user } = useSelector((state) => state.user);
   const { note_loading, success } = useSelector((state) => state.notes);
 
-  const instanceRef = useRef(null);
   const [title, setTitle] = useState("");
+  const [editorData, setEditorData] = useState(defaultMent);
 
-  const createDate = new Date();
+  const defaultMent = {
+    blocks: [
+      {
+        type: "header",
+        data: {
+          text: "제목을 입력해주세요",
+          level: 2,
+        },
+      },
+      {
+        type: "paragraph",
+        data: {
+          text: "내용을 입력해주세요",
+        },
+      },
+    ],
+  };
 
-  const handleInput = (e) => {
+  const handleInput = useCallback((e) => {
     const title = e.target.value;
     setTitle(title);
-  };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await instanceRef.current.save();
     const note_data = {
       uid: user.uid,
-      title: title,
       content: data,
       date: createDate.getTime(),
       rdate: -1 * createDate.getTime(),
@@ -68,32 +76,13 @@ const Write = () => {
       ) : (
         <WriteBox>
           <div className="control">
-            <button type="button" className="btn" onClick={handleSubmit}>
-              저장
-            </button>
-            <button type="button" className="btn" onClick={handleReset}>
-              취소
-            </button>
+            <Button type="button" onClick={handleSubmit} label="저장" />
+            <Button type="button" onClick={handleReset} label="취소" />
           </div>
           {note_loading ? (
             <Loader type="Oval" color="#00BFFF" height={40} width={40} className="loader" />
           ) : (
-            <>
-              <div className="input_box title">
-                <input
-                  type="text"
-                  placeholder="제목을 입력하세요"
-                  value={title}
-                  onChange={handleInput}
-                />
-              </div>
-              <EditorJs
-                data={data}
-                instanceRef={(el) => (instanceRef.current = el)}
-                tools={EDITOR_JS_TOOLS}
-                enableReInitialize={true}
-              />
-            </>
+            <EditorJs data={defaultMent} instanceRef={(el) => (instanceRef.current = el)} tools={EDITOR_JS_TOOLS} />
           )}
         </WriteBox>
       )}
@@ -116,15 +105,9 @@ const WriteBox = styled.div`
   padding-top: 3em;
   .control {
     display: flex;
-    .btn {
-      padding: 0.6em 1em;
-      border: 1px solid #eee;
-      border-radius: 4px;
+    button {
       margin-right: 0.5em;
       margin-bottom: 4em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   }
   .title {
