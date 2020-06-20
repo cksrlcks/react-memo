@@ -6,17 +6,19 @@ export const LOAD_NOTES_REQUEST = "LOAD_NOTES_REQUEST";
 export const LOAD_NOTES_SUCCESS = "LOAD_NOTES_SUCCESS";
 export const LOAD_NOTES_FAILURE = "LOAD_NOTES_FAILURE";
 
-export const SYNC_NOTES_REQUEST = "SYNC_NOTES_REQUEST";
-export const SYNC_NOTES_SUCCESS = "SYNC_NOTES_SUCCESS";
-export const SYNC_NOTES_FAILURE = "SYNC_NOTES_FAILURE";
-
 export const DELETE_NOTE_REQUEST = "DELETE_NOTE_REQUEST";
-export const DELETE_NOTE_SUCCESS = "DELETE_NOTES_SUCCESS";
+export const DELETE_NOTE_SUCCESS = "DELETE_NOTE_SUCCESS";
 export const DELETE_NOTE_FAILURE = "DELETE_NOTE_FAILURE";
 
-export const SUCCESS_RESET = "SUCCESS_RESET";
+export const SET_KEY_REQUEST = "SET_KEY_REQUEST";
+export const SET_KEY_SUCCESS = "SET_KEY_SUCCESS";
+export const SET_KEY_FAILURE = "SET_KEY_FAILURE";
 
-export const VIEW_NOTE = "VIEW_NOTE";
+export const UPDATE_NOTE_REQUEST = "UPDATE_NOTE_REQUEST";
+export const UPDATE_NOTE_SUCCESS = "UPDATE_NOTE_SUCCESS";
+export const UPDATE_NOTE_FAILURE = "UPDATE_NOTE_FAILURE";
+
+export const SUCCESS_RESET = "SUCCESS_RESET";
 
 export const add_note = (data) => {
   return {
@@ -55,6 +57,25 @@ export const load_notes_failure = () => {
   };
 };
 
+export const set_key = (itemKey) => {
+  return {
+    type: SET_KEY_REQUEST,
+    nowKey: itemKey,
+  };
+};
+
+export const set_key_success = (itemKey) => {
+  return {
+    type: SET_KEY_SUCCESS,
+    nowKey: itemKey,
+  };
+};
+export const set_key_failure = () => {
+  return {
+    type: SET_KEY_FAILURE,
+  };
+};
+
 export const delete_note = (itemKey) => {
   return {
     type: DELETE_NOTE_REQUEST,
@@ -73,33 +94,27 @@ export const delete_note_failure = () => {
   };
 };
 
-export const sync_notes = () => {
+export const update_note = (update_data, itemKey) => {
   return {
-    type: SYNC_NOTES_REQUEST,
-  };
-};
-export const sync_notes_success = (userNotes) => {
-  return {
-    type: SYNC_NOTES_SUCCESS,
-    notes: userNotes,
+    type: UPDATE_NOTE_REQUEST,
+    note: update_data,
+    targetKey: itemKey,
   };
 };
 
-export const sync_notes_failure = () => {
+export const update_note_success = () => {
   return {
-    type: SYNC_NOTES_FAILURE,
+    type: UPDATE_NOTE_SUCCESS,
+  };
+};
+export const update_note_failure = () => {
+  return {
+    type: UPDATE_NOTE_FAILURE,
   };
 };
 
 export const success_reset = () => {
   return {
     type: SUCCESS_RESET,
-  };
-};
-
-export const view_note = (itemKey) => {
-  return {
-    type: VIEW_NOTE,
-    nowKey: itemKey,
   };
 };

@@ -4,40 +4,26 @@ import NoteView from "../components/Notes/NoteView";
 import NoteList from "../components/Notes/NoteList";
 import EmptyNote from "../components/Notes/EmptyNote";
 import styled from "styled-components";
+import { load_notes, set_key } from "../redux/action/noteAction";
 
-const Notes = () => {
+const Notes = ({ history }) => {
   const dispatch = useDispatch();
-  const { note_loading, notes, nowKey } = useSelector((state) => state.notes);
-  const { loading, loggedIn, user } = useSelector((state) => state.user);
-  const [viewNote, setViewNote] = useState("");
-  const viewPageSetting = (key) => {
-    const item = notes[key];
-    setViewNote(item);
-  };
-  useEffect(() => {
-    viewPageSetting(nowKey);
-  }, [nowKey]);
+  const { notes, nowKey } = useSelector((state) => state.notes);
+  const { loggedIn } = useSelector((state) => state.user);
+
   return (
     <>
       {!loggedIn ? (
         <LoginRequestBox>로그인이 필요합니다.</LoginRequestBox>
-      ) : (
+      ) : notes ? (
         <NotesListBox>
-          {note_loading ? (
-            <>노트를 불러오는 중입니다.</>
-          ) : (
-            <>
-              {!notes ? (
-                <EmptyNote />
-              ) : (
-                <NotePageView>
-                  <NoteList notes={notes} />
-                  <NoteView viewNote={viewNote} itemKey={nowKey} />
-                </NotePageView>
-              )}
-            </>
-          )}
+          <NotePageView>
+            <NoteList notes={notes} />
+            {nowKey && <NoteView note={notes[nowKey]} itemKey={nowKey} />}
+          </NotePageView>
         </NotesListBox>
+      ) : (
+        <EmptyNote />
       )}
     </>
   );

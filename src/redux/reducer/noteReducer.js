@@ -5,22 +5,23 @@ import {
   LOAD_NOTES_REQUEST,
   LOAD_NOTES_SUCCESS,
   LOAD_NOTES_FAILURE,
-  SYNC_NOTES_REQUEST,
-  SYNC_NOTES_SUCCESS,
-  SYNC_NOTES_FAILURE,
-  VIEW_NOTE,
-  SUCCESS_RESET,
   DELETE_NOTE_REQUEST,
   DELETE_NOTE_SUCCESS,
   DELETE_NOTE_FAILURE,
+  UPDATE_NOTE_REQUEST,
+  UPDATE_NOTE_SUCCESS,
+  UPDATE_NOTE_FAILURE,
+  SET_KEY_REQUEST,
+  SET_KEY_SUCCESS,
+  SET_KEY_FAILURE,
+  SUCCESS_RESET,
 } from "../action/noteAction";
 
 const initialState = {
   note_loading: false,
-  reset: false,
   notes: "",
-  success: false,
   nowKey: "",
+  success: false,
 };
 
 const notes = (state = initialState, action) => {
@@ -57,18 +58,18 @@ const notes = (state = initialState, action) => {
         ...state,
         note_loading: false,
       };
-    case SYNC_NOTES_REQUEST:
+    case SET_KEY_REQUEST:
       return {
         ...state,
         note_loading: true,
       };
-    case SYNC_NOTES_SUCCESS:
+    case SET_KEY_SUCCESS:
       return {
         ...state,
+        nowKey: action.nowKey,
         note_loading: false,
-        notes: action.notes,
       };
-    case SYNC_NOTES_FAILURE:
+    case SET_KEY_FAILURE:
       return {
         ...state,
         note_loading: false,
@@ -88,15 +89,25 @@ const notes = (state = initialState, action) => {
         ...state,
         note_loading: false,
       };
+    case UPDATE_NOTE_REQUEST:
+      return {
+        ...state,
+        note_loading: true,
+      };
+    case UPDATE_NOTE_SUCCESS:
+      return {
+        ...state,
+        note_loading: false,
+      };
+    case UPDATE_NOTE_FAILURE:
+      return {
+        ...state,
+        note_loading: false,
+      };
     case SUCCESS_RESET:
       return {
         ...state,
         success: false,
-      };
-    case VIEW_NOTE:
-      return {
-        ...state,
-        nowKey: action.nowKey,
       };
     default:
       return state;
