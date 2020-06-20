@@ -58,7 +58,6 @@ const Write = () => {
   const handleReset = () => {
     setTitle("");
     instanceRef.current.clear();
-    instanceRef.current.insert(data);
   };
   return (
     <>

@@ -6,7 +6,7 @@
     // ],
     ["@babel/preset-env", {
       "targets": {
-        "browsers" : ["last 2 versions", "ie >= 11"]
+        "browsers": ["last 2 versions", ">= 5% in KR"] 
       },
       "useBuiltIns": "usage",
       "corejs":3,
