@@ -43,7 +43,7 @@ const User = ({ history }) => {
       <Input type="password" label="비밀번호" placeholder="비밀번호를 입력해주세요" id="user_password" value="password" onChange={handlePassword} />
       <Button type="submit" onClick={handleLogin} label="로그인" width="100%" />
       <Button type="button" onClick={handleSignUp} label="회원가입" width="100%" />
-      <Button type="button" onClick={handleGoogle} label="Sign in With Google" width="100%" bgColor="orangered" color="#FFF" fontWeight="500" />
+      <Button type="button" onClick={handleGoogle} label="Sign in With Google" width="100%" bgColor="orangered" color="#FFF" fontWeight="500" hover="none" />
     </LoginBox>
   );
 };

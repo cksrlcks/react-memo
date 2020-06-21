@@ -12,13 +12,25 @@ const ButtonItem = styled.button`
   color: ${(props) => props.color};
   width: ${(props) => props.width};
   font-weight: ${(props) => props.fontweight};
+  transition: all 0.2s;
+  &:hover {
+    border-color: #1890ff;
+    color: #1890ff;
+  }
+  &.none {
+    border: none;
+    &:hover {
+      border-color: none;
+      color: ${(props) => props.color};
+    }
+  }
 `;
 
 const Button = (props) => {
-  const { label, type, onClick, width, color, bgColor, fontWeight } = props;
+  const { label, type, onClick, width, color, bgColor, fontWeight, hover } = props;
 
   return (
-    <ButtonItem type={type} onClick={onClick} width={width} color={color} bgColor={bgColor}>
+    <ButtonItem type={type} onClick={onClick} width={width} color={color} bgColor={bgColor} className={hover}>
       {label}
     </ButtonItem>
   );
