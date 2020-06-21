@@ -1,4 +1,10 @@
 #editor-js {
+  .ce-paragraph[data-placeholder]:empty::before {
+    opacity: 1;
+  }
+  .ce-header[contentEditable="true"][data-placeholder]:empty:focus::before {
+    display: block;
+  }
   h1 {
     font-size: 2em;
     margin: 0.67em 0;

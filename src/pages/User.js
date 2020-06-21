@@ -58,6 +58,8 @@ const LoginBox = styled.form`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  padding: 16px;
   input {
     margin-bottom: 2em;
     height: 4em;

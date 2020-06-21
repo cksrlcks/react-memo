@@ -1,22 +1,15 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { Scrollbars } from "react-custom-scrollbars";
 import { useSelector, useDispatch } from "react-redux";
 import { delete_note, update_note } from "../../redux/action/noteAction";
 import EditorJs from "react-editor-js";
-import Header from "@editorjs/header";
-import Paragraph from "@editorjs/paragraph";
 import Loader from "react-loader-spinner";
 import Button from "../ui/Button";
-
-//editor_js settings
-const EDITOR_JS_TOOLS = {
-  paragraph: Paragraph,
-  header: Header,
-};
+import EDITOR_JS_TOOLS from "../ui/EditorTools";
 
 const NoteView = ({ itemKey, note }) => {
-  const { note_loading, notes, nowKey } = useSelector((state) => state.notes);
+  const { note_loading } = useSelector((state) => state.notes);
   const dispatch = useDispatch();
   const instanceRef = useRef(null);
 
@@ -31,7 +24,6 @@ const NoteView = ({ itemKey, note }) => {
     };
     dispatch(update_note(update_data, itemKey));
     instanceRef.current.clear();
-    //instanceRef.current.render();
   };
 
   const handleDelete = () => {
@@ -56,8 +48,6 @@ const NoteView = ({ itemKey, note }) => {
 };
 
 export default NoteView;
-
-const ControlBox = styled.div``;
 
 const NoteViewBox = styled.div`
   padding-top: 3em;

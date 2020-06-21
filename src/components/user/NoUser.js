@@ -1,28 +1,28 @@
 import React from "react";
 import styled from "styled-components";
-
-const EmptyNote = ({ onClick }) => {
+const NoUser = ({ onClick }) => {
   return (
-    <EmptyNoteBox>
-      <span className="icon">🤭</span>
-      <p className="title">작성된 노트가 없습니다</p>
-      <p className="sub_title">첫 노트를 작성해보세요.</p>
+    <NoUserBox>
+      <span className="icon">👋</span>
+      <p className="title">노트를 작성해보세요</p>
+      <p className="sub_title">로그인 후 이용가능합니다.</p>
       <button className="login" type="button" onClick={onClick}>
-        작성하기
+        로그인하기
       </button>
-    </EmptyNoteBox>
+    </NoUserBox>
   );
 };
 
-export default EmptyNote;
+export default NoUser;
 
-const EmptyNoteBox = styled.div`
-  display: flex;
+const NoUserBox = styled.div`
+  width: 100%;
   height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-align: center;
+
   .icon {
     display: block;
     margin-bottom: 1em;

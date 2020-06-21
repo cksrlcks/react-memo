@@ -9,9 +9,16 @@ const NoteItem = ({ note, itemKey }) => {
   };
   const render_date = new Date(note && note.date).toLocaleString();
   const render_update = note.updateDate ? new Date(note.updateDate).toLocaleString() : "";
+
+  const striptHTML = (content) => {
+    let tempElement = document.createElement("div");
+    tempElement.innerHTML = content;
+
+    return tempElement.textContent || tempElement.innerText || "";
+  };
   return (
     <NoteItemBox onClick={handleView}>
-      <p className="title">{note && note.content.blocks[0].data.text}</p>
+      <p className="title">{striptHTML(note && note.content.blocks[0].data.text)}</p>
       <p className="date">작성일 : {render_date}</p>
       {render_update && <p className="modify">최근 수정일 : {render_update}</p>}
     </NoteItemBox>

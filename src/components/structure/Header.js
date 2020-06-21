@@ -9,9 +9,6 @@ const Header = () => {
       <User />
       <Nav>
         <NavLink exact to="/" activeClassName="active">
-          Home
-        </NavLink>
-        <NavLink to="/notes" activeClassName="active">
           List
         </NavLink>
         <NavLink to="/Write" activeClassName="active">

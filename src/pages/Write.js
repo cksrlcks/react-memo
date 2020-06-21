@@ -1,53 +1,36 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import EditorJs from "react-editor-js";
-import Header from "@editorjs/header";
-import Paragraph from "@editorjs/paragraph";
 import { add_note } from "../redux/action/noteAction";
 import Loader from "react-loader-spinner";
 import SuccessAnimation from "../components/Notes/Success";
 import Button from "../components/ui/Button";
-import "../css/editor.scss";
-//editor_js settings
-const EDITOR_JS_TOOLS = {
-  paragraph: Paragraph,
-  header: Header,
-};
+import NoUser from "../components/user/NoUser";
+import EDITOR_JS_TOOLS from "../components/ui/EditorTools";
 
-const Write = () => {
+const Write = ({ history }) => {
   const dispatch = useDispatch();
   const instanceRef = useRef(null);
   const createDate = new Date();
 
-  const { loading, loggedIn, user } = useSelector((state) => state.user);
+  const { loggedIn, user } = useSelector((state) => state.user);
   const { note_loading, success } = useSelector((state) => state.notes);
 
-  const [title, setTitle] = useState("");
-  const [editorData, setEditorData] = useState(defaultMent);
+  const handleLogin = () => {
+    history.push("/User");
+  };
 
   const defaultMent = {
     blocks: [
       {
         type: "header",
-        data: {
-          text: "제목을 입력해주세요",
-          level: 2,
-        },
       },
       {
         type: "paragraph",
-        data: {
-          text: "내용을 입력해주세요",
-        },
       },
     ],
   };
-
-  const handleInput = useCallback((e) => {
-    const title = e.target.value;
-    setTitle(title);
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,13 +47,13 @@ const Write = () => {
     handleReset();
   };
   const handleReset = () => {
-    setTitle("");
     instanceRef.current.clear();
+    instanceRef.current.render(defaultMent);
   };
   return (
     <>
       {!loggedIn ? (
-        <LoginRequestBox>로그인이 필요합니다.</LoginRequestBox>
+        <NoUser onClick={handleLogin} />
       ) : success ? (
         <SuccessAnimation />
       ) : (
@@ -100,11 +83,12 @@ const LoginRequestBox = styled.div`
   align-items: center;
 `;
 const WriteBox = styled.div`
-  max-width: 650px;
-  margin: 0 auto;
-  padding-top: 3em;
+  padding: 0 16px;
   .control {
     display: flex;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 3em 0 0;
     button {
       margin-right: 0.5em;
       margin-bottom: 4em;

@@ -25,7 +25,7 @@ const SuccessAnimation = () => {
     <AlertBox>
       <Lottie options={defaultOptions} height={376} width={470} />
       <div className="text_box">
-        <p>성공적으로 저장되었습니다.</p>
+        <p className="title">성공적으로 저장되었습니다.</p>
         <p>작성페이지로 돌아갑니다.</p>
       </div>
     </AlertBox>
@@ -48,6 +48,11 @@ const AlertBox = styled.div`
       font-size: 1.2em;
       opacity: 0.6;
       margin-bottom: 1em;
+      &.title {
+        color: #111;
+        font-size: 1.4em;
+        font-weight: 500;
+      }
     }
   }
 `;

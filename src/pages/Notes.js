@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NoteView from "../components/Notes/NoteView";
 import NoteList from "../components/Notes/NoteList";
 import EmptyNote from "../components/Notes/EmptyNote";
+import NoUser from "../components/user/NoUser";
 import styled from "styled-components";
-import { load_notes, set_key } from "../redux/action/noteAction";
 
 const Notes = ({ history }) => {
   const dispatch = useDispatch();
   const { notes, nowKey } = useSelector((state) => state.notes);
   const { loggedIn } = useSelector((state) => state.user);
-
+  const handleLogin = () => {
+    history.push("/User");
+  };
+  const handleWrite = () => {
+    history.push("/Write");
+  };
   return (
     <>
       {!loggedIn ? (
-        <LoginRequestBox>로그인이 필요합니다.</LoginRequestBox>
+        <NoUser onClick={handleLogin} />
       ) : notes ? (
         <NotesListBox>
           <NotePageView>
@@ -23,7 +28,7 @@ const Notes = ({ history }) => {
           </NotePageView>
         </NotesListBox>
       ) : (
-        <EmptyNote />
+        <EmptyNote onClick={handleWrite} />
       )}
     </>
   );

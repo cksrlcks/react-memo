@@ -7,5 +7,6 @@ import ReactDOM from "react-dom";
 import App from "./app.js";
 import "./css/reset.css";
 import "./css/layout.scss";
+import "./css/editor.scss";
 
 ReactDOM.render(<App />, document.getElementById("app"));
