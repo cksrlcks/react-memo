@@ -24,13 +24,23 @@ const ButtonItem = styled.button`
       color: ${(props) => props.color};
     }
   }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Button = (props) => {
   const { label, type, onClick, width, color, bgColor, fontWeight, hover } = props;
 
   return (
-    <ButtonItem type={type} onClick={onClick} width={width} color={color} bgColor={bgColor} className={hover}>
+    <ButtonItem
+      type={type}
+      onClick={onClick}
+      width={width}
+      color={color}
+      bgColor={bgColor}
+      className={hover}
+    >
       {label}
     </ButtonItem>
   );
